@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import MagicalBackground from '@/components/MagicalBackground';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ import {
 import { toast } from 'sonner';
 
 const menuItems = [
-  { icon: BookOpen, title: "Life Updates", tagalog: "Mga Balita sa Buhay", href: "#" },
+  { icon: BookOpen, title: "Life Updates", tagalog: "Mga Balita sa Buhay", href: "/timeline" },
   { icon: GraduationCap, title: "Academic", tagalog: "Pag-aaral", href: "#" },
   { icon: Heart, title: "Love Story", tagalog: "Kwento ng Pag-ibig", href: "#" },
   { icon: Users, title: "Friends", tagalog: "Mga Kaibigan", href: "#" },
@@ -122,27 +122,39 @@ const Dashboard: React.FC = () => {
           <section className="pb-24 px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {menuItems.map((item, index) => (
-                  <Card 
-                    key={item.title}
-                    className="group relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-gold/50 transition-all duration-500 hover:scale-105 hover:shadow-magical cursor-pointer animate-fade-in"
-                    style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'both' }}
-                  >
-                    <CardHeader className="pb-2">
-                      <div className="w-12 h-12 rounded-full bg-primary/20 border border-gold/20 flex items-center justify-center mx-auto group-hover:border-gold/50 group-hover:bg-primary/30 transition-all duration-300">
-                        <item.icon className="w-6 h-6 text-gold group-hover:scale-110 transition-transform" />
-                      </div>
-                    </CardHeader>
-                    <CardContent className="text-center pt-0">
-                      <CardTitle className="font-magical text-base text-foreground group-hover:text-gold transition-colors mb-1">
-                        {item.title}
-                      </CardTitle>
-                      <p className="font-elegant text-xs text-primary italic">
-                        {item.tagalog}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
+                {menuItems.map((item, index) => {
+                  const isLink = item.href !== '#';
+                  const cardContent = (
+                    <Card 
+                      className="group relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:border-gold/50 transition-all duration-500 hover:scale-105 hover:shadow-magical cursor-pointer animate-fade-in h-full"
+                      style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'both' }}
+                    >
+                      <CardHeader className="pb-2">
+                        <div className="w-12 h-12 rounded-full bg-primary/20 border border-gold/20 flex items-center justify-center mx-auto group-hover:border-gold/50 group-hover:bg-primary/30 transition-all duration-300">
+                          <item.icon className="w-6 h-6 text-gold group-hover:scale-110 transition-transform" />
+                        </div>
+                      </CardHeader>
+                      <CardContent className="text-center pt-0">
+                        <CardTitle className="font-magical text-base text-foreground group-hover:text-gold transition-colors mb-1">
+                          {item.title}
+                        </CardTitle>
+                        <p className="font-elegant text-xs text-primary italic">
+                          {item.tagalog}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                  
+                  return isLink ? (
+                    <Link key={item.title} to={item.href} className="block">
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div key={item.title} className="block">
+                      {cardContent}
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Coming Soon Notice */}
