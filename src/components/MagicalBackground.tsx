@@ -3,9 +3,10 @@ import heroBackground from '@/assets/hero-enchanted-forest.jpg';
 
 interface MagicalBackgroundProps {
   showSnow?: boolean;
+  showCandles?: boolean;
 }
 
-const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true }) => {
+const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true, showCandles = true }) => {
   // Generate random stars
   const stars = Array.from({ length: 40 }, (_, i) => ({
     id: i,
@@ -25,6 +26,15 @@ const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true }
     size: Math.random() * 10 + 5,
   })) : [];
 
+  // Generate floating candles (Harry Potter style)
+  const candles = showCandles ? Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 90 + 5}%`,
+    top: `${Math.random() * 60 + 10}%`,
+    delay: `${Math.random() * 4}s`,
+    duration: `${Math.random() * 3 + 4}s`,
+    scale: Math.random() * 0.4 + 0.6,
+  })) : [];
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
       {/* Hero background image */}
@@ -71,6 +81,34 @@ const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true }
           }}
         >
           ❄
+        </div>
+      ))}
+      
+      {/* Floating Candles */}
+      {candles.map((candle) => (
+        <div
+          key={candle.id}
+          className="absolute animate-float pointer-events-none"
+          style={{
+            left: candle.left,
+            top: candle.top,
+            animationDelay: candle.delay,
+            animationDuration: candle.duration,
+            transform: `scale(${candle.scale})`,
+          }}
+        >
+          {/* Candle body */}
+          <div className="relative flex flex-col items-center">
+            {/* Flame */}
+            <div className="relative mb-0.5">
+              <div className="w-2 h-4 bg-gradient-to-t from-amber-500 via-yellow-400 to-yellow-200 rounded-full animate-pulse opacity-90" />
+              <div className="absolute inset-0 w-2 h-4 bg-gradient-to-t from-amber-500 via-yellow-400 to-white rounded-full blur-sm animate-pulse" />
+              {/* Flame glow */}
+              <div className="absolute -inset-2 bg-amber-400/30 rounded-full blur-md" />
+            </div>
+            {/* Candle stick */}
+            <div className="w-1.5 h-6 bg-gradient-to-b from-amber-100 to-amber-200 rounded-sm opacity-80" />
+          </div>
         </div>
       ))}
       
