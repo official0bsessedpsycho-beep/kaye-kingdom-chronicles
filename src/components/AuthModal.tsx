@@ -11,11 +11,18 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Lock, Mail, User, Key, Sparkles, Heart, Users, Home } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
+import { z } from 'zod';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const emailSchema = z.string().email('Please enter a valid email address');
+const passwordSchema = z.string().min(6, 'Password must be at least 6 characters');
+const nameSchema = z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name is too long');
+const inviteCodeSchema = z.string().min(1, 'Invite code is required');
 
 const relationshipOptions = [
   { value: 'family', label: 'Family', tagalog: 'Pamilya', icon: Home },
@@ -24,35 +31,82 @@ const relationshipOptions = [
 ];
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+  const { signIn, signUp } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedRelationship, setSelectedRelationship] = useState('');
   
+  // Login form state
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  
+  // Signup form state
+  const [signupName, setSignupName] = useState('');
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
+  
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    try {
+      emailSchema.parse(loginEmail);
+      passwordSchema.parse(loginPassword);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        toast.error(err.errors[0].message);
+        return;
+      }
+    }
+    
     setIsLoading(true);
     
-    // Simulate login - will be connected to Supabase
-    setTimeout(() => {
-      toast.info('Authentication will be enabled once Lovable Cloud is connected!');
-      setIsLoading(false);
-    }, 1000);
+    const { error } = await signIn(loginEmail, loginPassword);
+    
+    if (error) {
+      if (error.message.includes('Invalid login credentials')) {
+        toast.error('Invalid email or password. Please try again.');
+      } else {
+        toast.error(error.message);
+      }
+    } else {
+      toast.success('Maligayang pagbabalik! Welcome back!');
+      onClose();
+    }
+    
+    setIsLoading(false);
   };
   
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    if (!selectedRelationship) {
-      toast.error('Please select your relationship to Kaye');
-      return;
+    try {
+      nameSchema.parse(signupName);
+      emailSchema.parse(signupEmail);
+      passwordSchema.parse(signupPassword);
+      inviteCodeSchema.parse(inviteCode);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        toast.error(err.errors[0].message);
+        return;
+      }
     }
     
     setIsLoading(true);
     
-    // Simulate signup - will be connected to Supabase
-    setTimeout(() => {
-      toast.info('Registration requires an invite code. Contact Kaye or family members for access!');
-      setIsLoading(false);
-    }, 1000);
+    const { error } = await signUp(signupEmail, signupPassword, signupName, inviteCode);
+    
+    if (error) {
+      if (error.message.includes('User already registered')) {
+        toast.error('An account with this email already exists. Please login instead.');
+      } else {
+        toast.error(error.message);
+      }
+    } else {
+      toast.success('Maligayang pagdating sa mundo ni Kaye! Welcome to Kaye\'s world!');
+      onClose();
+    }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -85,13 +139,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <TabsContent value="login" className="mt-6">
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="font-clean text-sm">Email</Label>
+                <Label htmlFor="login-email" className="font-clean text-sm">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    id="email"
+                    id="login-email"
                     type="email"
                     placeholder="your@email.com"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
                     className="pl-10 bg-input border-border focus:border-gold"
                     required
                   />
@@ -99,13 +155,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password" className="font-clean text-sm">Password</Label>
+                <Label htmlFor="login-password" className="font-clean text-sm">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    id="password"
+                    id="login-password"
                     type="password"
                     placeholder="••••••••"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                     className="pl-10 bg-input border-border focus:border-gold"
                     required
                   />
@@ -133,6 +191,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     id="signup-name"
                     type="text"
                     placeholder="Juan Dela Cruz"
+                    value={signupName}
+                    onChange={(e) => setSignupName(e.target.value)}
                     className="pl-10 bg-input border-border focus:border-gold"
                     required
                   />
@@ -147,6 +207,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     id="signup-email"
                     type="email"
                     placeholder="your@email.com"
+                    value={signupEmail}
+                    onChange={(e) => setSignupEmail(e.target.value)}
                     className="pl-10 bg-input border-border focus:border-gold"
                     required
                   />
@@ -154,7 +216,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </div>
               
               <div className="space-y-2">
-                <Label className="font-clean text-sm">Relationship to Kaye</Label>
+                <Label className="font-clean text-sm">Your Relationship (for reference)</Label>
                 <div className="grid grid-cols-3 gap-2">
                   {relationshipOptions.map((option) => (
                     <button
@@ -181,8 +243,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   <Input
                     id="invite-code"
                     type="text"
-                    placeholder="Enter your invite code"
-                    className="pl-10 bg-input border-border focus:border-gold"
+                    placeholder="KAYE-FAMILY-2024"
+                    value={inviteCode}
+                    onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+                    className="pl-10 bg-input border-border focus:border-gold uppercase"
                     required
                   />
                 </div>
@@ -199,6 +263,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     id="signup-password"
                     type="password"
                     placeholder="••••••••"
+                    value={signupPassword}
+                    onChange={(e) => setSignupPassword(e.target.value)}
                     className="pl-10 bg-input border-border focus:border-gold"
                     required
                   />
