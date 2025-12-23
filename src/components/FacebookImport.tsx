@@ -1,57 +1,42 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ImageIcon, Share2, Sparkles } from 'lucide-react';
+import { ImageIcon, Share2 } from 'lucide-react';
 
 const FacebookImport: React.FC = () => {
   return (
-    <section className="relative py-20 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-      
+    <section className="relative py-16 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          {/* Decorative icon */}
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/30 mb-6">
-            <ImageIcon className="w-8 h-8 text-[#1877F2]" />
+        <div className="max-w-xl mx-auto text-center">
+          {/* Icon */}
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#1877F2]/10 border border-[#1877F2]/20 mb-5">
+            <ImageIcon className="w-7 h-7 text-[#1877F2]" />
           </div>
 
-          {/* Main heading */}
-          <h2 className="font-magical text-3xl md:text-4xl text-foreground mb-4">
-            Import Your Memories
+          {/* Heading */}
+          <h2 className="font-magical text-2xl md:text-3xl text-foreground mb-2">
+            Import memories from Facebook
           </h2>
-          <p className="font-elegant text-xl text-[#1877F2] italic mb-2">
-            from Facebook
-          </p>
 
           {/* Filipino translation */}
-          <p className="font-elegant text-muted-foreground mb-8">
-            "I-share ang iyong mga alaala mula sa Facebook"
+          <p className="font-elegant text-muted-foreground mb-6">
+            I-share ang mga alaala mo dito
           </p>
 
           {/* Description */}
-          <p className="font-clean text-muted-foreground mb-8 max-w-md mx-auto">
-            Connect your Facebook account to import photos, memories, and special moments 
-            to your enchanted timeline.
+          <p className="font-clean text-sm text-muted-foreground mb-6 max-w-md mx-auto">
+            Connect your Facebook to bring in photos and memories. Keep everything in one place!
           </p>
 
           {/* CTA Button */}
           <Button 
-            className="bg-[#1877F2] hover:bg-[#166FE5] text-white font-clean px-8 py-6 text-lg rounded-full group transition-all duration-300 hover:shadow-lg hover:shadow-[#1877F2]/30"
+            className="bg-[#1877F2] hover:bg-[#166FE5] text-white font-clean px-6 py-5 rounded-full group transition-all duration-200 hover:shadow-lg"
             onClick={() => {
-              // Placeholder - will implement actual Facebook integration later
               console.log('Facebook connect clicked');
             }}
           >
-            <Share2 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-            Connect & Share
+            <Share2 className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
+            Connect Facebook
           </Button>
-
-          {/* Decorative sparkles */}
-          <div className="flex justify-center gap-8 mt-8 opacity-50">
-            <Sparkles className="w-4 h-4 text-gold animate-pulse" />
-            <Sparkles className="w-4 h-4 text-gold animate-pulse" style={{ animationDelay: '0.3s' }} />
-            <Sparkles className="w-4 h-4 text-gold animate-pulse" style={{ animationDelay: '0.6s' }} />
-          </div>
         </div>
       </div>
     </section>

@@ -1,100 +1,86 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
 
 const festivals = [
   {
     emoji: '🎄',
     title: 'Pasko',
     subtitle: 'Christmas',
-    description: 'The longest Christmas celebration in the world, starting in September!',
-    tagalog: 'Maligayang Pasko!',
-    gradient: 'from-christmas-red/20 to-christmas-green/20',
-    borderColor: 'border-christmas-red/40',
-    glowColor: 'shadow-christmas-red/20',
+    description: 'The longest Christmas celebration in the world — starting in September!',
+    tagalog: 'My favorite time of the year 💚',
+    bgColor: 'bg-gradient-to-br from-red-50 to-green-50',
+    borderColor: 'border-red-200 hover:border-red-300',
+    accentColor: 'text-red-500',
   },
   {
     emoji: '💐',
     title: 'Flores de Mayo',
     subtitle: 'May Flower Festival',
-    description: 'A month-long celebration honoring the Virgin Mary with beautiful flowers.',
-    tagalog: 'Alay ng mga Bulaklak',
-    gradient: 'from-rose-400/20 to-pink-300/20',
-    borderColor: 'border-rose-400/40',
-    glowColor: 'shadow-rose-400/20',
+    description: 'A beautiful celebration with flowers honoring the Virgin Mary.',
+    tagalog: 'Born in this month! 🌸',
+    bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50',
+    borderColor: 'border-pink-200 hover:border-pink-300',
+    accentColor: 'text-pink-500',
   },
   {
     emoji: '🎉',
     title: 'Sinulog',
     subtitle: 'Cebu Festival',
-    description: 'A colorful dance festival celebrating the Santo Niño de Cebu.',
-    tagalog: 'Pit Señor!',
-    gradient: 'from-amber-400/20 to-orange-400/20',
-    borderColor: 'border-amber-400/40',
-    glowColor: 'shadow-amber-400/20',
+    description: 'A colorful dance festival celebrating Santo Niño de Cebu.',
+    tagalog: 'Pit Señor! 🙏',
+    bgColor: 'bg-gradient-to-br from-amber-50 to-orange-50',
+    borderColor: 'border-amber-200 hover:border-amber-300',
+    accentColor: 'text-amber-500',
   },
 ];
 
 const FilipinoFestivals: React.FC = () => {
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gold/5 to-transparent" />
-      
+    <section className="relative py-20 overflow-hidden bg-gradient-to-b from-transparent via-secondary/30 to-transparent">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-3">
             <span className="text-2xl">🇵🇭</span>
-            <span className="font-elegant text-gold/80 text-sm tracking-widest uppercase">
-              Philippine Culture
+            <span className="font-clean text-sm text-muted-foreground uppercase tracking-wider">
+              Filipino Culture
             </span>
             <span className="text-2xl">🇵🇭</span>
           </div>
-          <h2 className="font-magical text-4xl md:text-5xl text-foreground mb-4">
-            Festive Celebrations
+          <h2 className="font-magical text-3xl md:text-4xl text-foreground mb-2">
+            It's Pasko! 🎄
           </h2>
-          <p className="font-elegant text-xl text-gold italic">
-            "Pasko na Naman!"
-          </p>
-          <p className="font-clean text-muted-foreground mt-2">
-            Celebrating Filipino traditions and festivities
+          <p className="font-elegant text-lg text-muted-foreground">
+            Celebrating the traditions I grew up with
           </p>
         </div>
 
         {/* Festival Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {festivals.map((festival, index) => (
             <Card
               key={festival.title}
               className={`
-                group relative overflow-hidden
-                bg-gradient-to-br ${festival.gradient}
+                group overflow-hidden
+                ${festival.bgColor}
                 border-2 ${festival.borderColor}
-                backdrop-blur-sm
-                transition-all duration-500
-                hover:scale-105 hover:${festival.glowColor} hover:shadow-2xl
+                transition-all duration-300
+                hover:scale-[1.02] hover:shadow-lift
                 animate-fade-in
               `}
-              style={{ animationDelay: `${index * 0.2}s` }}
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              {/* Golden frame corners */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-gold/50 rounded-tl-lg" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-gold/50 rounded-tr-lg" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-gold/50 rounded-bl-lg" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-gold/50 rounded-br-lg" />
-
-              <CardContent className="p-8 text-center">
+              <CardContent className="p-6 text-center">
                 {/* Emoji */}
-                <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   {festival.emoji}
                 </div>
 
                 {/* Title */}
-                <h3 className="font-magical text-2xl text-foreground mb-1">
+                <h3 className={`font-magical text-xl ${festival.accentColor} mb-1`}>
                   {festival.title}
                 </h3>
-                <p className="font-elegant text-sm text-gold/80 italic mb-4">
+                <p className="font-elegant text-sm text-muted-foreground mb-3">
                   {festival.subtitle}
                 </p>
 
@@ -103,18 +89,13 @@ const FilipinoFestivals: React.FC = () => {
                   {festival.description}
                 </p>
 
-                {/* Tagalog phrase */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 border border-gold/20">
-                  <Sparkles className="w-3 h-3 text-gold" />
-                  <span className="font-elegant text-sm text-gold">
+                {/* Personal touch */}
+                <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/60 border border-border/50">
+                  <span className="font-elegant text-sm text-foreground">
                     {festival.tagalog}
                   </span>
-                  <Sparkles className="w-3 h-3 text-gold" />
                 </div>
               </CardContent>
-
-              {/* Hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gold/5 blur-xl -z-10" />
             </Card>
           ))}
         </div>
