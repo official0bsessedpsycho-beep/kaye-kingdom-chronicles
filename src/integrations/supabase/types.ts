@@ -14,16 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      invite_codes: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          max_uses: number
+          relationship: Database["public"]["Enums"]["user_role"]
+          uses_count: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number
+          relationship?: Database["public"]["Enums"]["user_role"]
+          uses_count?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number
+          relationship?: Database["public"]["Enums"]["user_role"]
+          uses_count?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          approved: boolean
+          approved_by: string | null
+          avatar_url: string | null
+          created_at: string
+          display_name: string
+          id: string
+          relationship: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean
+          approved_by?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          display_name: string
+          id?: string
+          relationship?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved?: boolean
+          approved_by?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          relationship?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "family" | "friend" | "inner_circle" | "pending"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +242,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["family", "friend", "inner_circle", "pending"],
+    },
   },
 } as const
