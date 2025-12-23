@@ -34,8 +34,8 @@ const Index: React.FC = () => {
       </Helmet>
       
       <div className="relative min-h-screen bg-background overflow-hidden">
-        {/* Magical animated background with floating candles */}
-        <MagicalBackground showSnow={true} showCandles={true} />
+        {/* Subtle background */}
+        <MagicalBackground showSnow={true} />
         
         {/* Navigation */}
         <Navbar onLoginClick={handleLoginClick} />

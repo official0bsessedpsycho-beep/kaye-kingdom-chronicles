@@ -34,9 +34,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEnterClick }) => {
           Welcome to my little corner of the internet
         </p>
 
-        {/* Taurus & May Baby badges */}
-        <p className="font-elegant text-lg text-primary/80 mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          ♉ Taurus • May Baby 🌸 • 🇵🇭 Filipina
+        {/* Personal details */}
+        <p className="font-elegant text-lg text-primary/70 mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          ♉ Taurus • May baby 🌸 • 🇵🇭 Filipina
         </p>
         
         {/* Personal description */}

@@ -41,17 +41,17 @@ const FilipinoFestivals: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="text-2xl">🇵🇭</span>
-            <span className="font-clean text-sm text-muted-foreground uppercase tracking-wider">
-              Filipino Culture
+            <span className="text-xl">🇵🇭</span>
+            <span className="font-clean text-xs text-muted-foreground uppercase tracking-wider">
+              Pinoy traditions
             </span>
-            <span className="text-2xl">🇵🇭</span>
+            <span className="text-xl">🇵🇭</span>
           </div>
           <h2 className="font-magical text-3xl md:text-4xl text-foreground mb-2">
-            It's Pasko! 🎄
+            Holidays I love 🎄
           </h2>
           <p className="font-elegant text-lg text-muted-foreground">
-            Celebrating the traditions I grew up with
+            My favorite Filipino celebrations
           </p>
         </div>
 
