@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
+import { DisplayNameSchema, InviteCodeSchema } from '@/lib/validation';
+import { z } from 'zod';
 
 interface Profile {
   id: string;
@@ -48,13 +51,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .maybeSingle();
 
       if (error) {
-        console.error('Error fetching profile:', error);
+        logger.error('Failed to fetch user profile', error);
         return;
       }
 
       setProfile(data);
     } catch (err) {
-      console.error('Error fetching profile:', err);
+      logger.error('Failed to fetch user profile', err);
     }
   };
 
@@ -106,11 +109,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     inviteCode: string
   ): Promise<{ error: Error | null }> => {
     try {
+      // Validate display name
+      try {
+        DisplayNameSchema.parse(displayName);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return { error: new Error(error.errors[0].message) };
+        }
+      }
+
+      // Validate and normalize invite code
+      let normalizedCode: string;
+      try {
+        normalizedCode = InviteCodeSchema.parse(inviteCode);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return { error: new Error(error.errors[0].message) };
+        }
+        return { error: new Error('Invalid invite code format') };
+      }
+
       // Validate invite code first
       const { data: codeData, error: codeError } = await supabase
         .from('invite_codes')
         .select('*')
-        .eq('code', inviteCode.toUpperCase())
+        .eq('code', normalizedCode)
         .eq('is_active', true)
         .maybeSingle();
 
@@ -145,18 +168,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (data.user) {
-        // Update the profile with the relationship from the invite code
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .update({ 
-            relationship: codeData.relationship,
-            display_name: displayName,
-            approved: true 
-          })
-          .eq('user_id', data.user.id);
+        // Use the secure RPC function to approve the user with invite code
+        const { error: approvalError } = await supabase
+          .rpc('approve_user_with_invite', {
+            p_user_id: data.user.id,
+            p_display_name: displayName,
+            p_relationship: codeData.relationship
+          });
 
-        if (profileError) {
-          console.error('Error updating profile:', profileError);
+        if (approvalError) {
+          logger.error('Failed to approve user profile', approvalError);
         }
 
         // Increment the invite code usage (this might fail due to RLS, but that's ok)

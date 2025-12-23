@@ -2,6 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { logger } from '@/lib/logger';
+import { PostContentSchema, CommentSchema } from '@/lib/validation';
+import { z } from 'zod';
 
 export type PostAudience = 'family' | 'inner_circle' | 'friends' | 'everyone';
 
@@ -107,7 +110,7 @@ export const usePosts = () => {
 
       setPosts(enrichedPosts);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      logger.error('Failed to load posts', error);
       toast.error('Failed to load posts');
     } finally {
       setIsLoading(false);
@@ -116,6 +119,16 @@ export const usePosts = () => {
 
   const createPost = async (content: string, audience: PostAudience, mediaUrls: string[] = []) => {
     if (!user) return null;
+
+    // Validate input
+    try {
+      PostContentSchema.parse({ content, audience });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+        return null;
+      }
+    }
 
     try {
       // Create the post
@@ -144,7 +157,7 @@ export const usePosts = () => {
           .insert(mediaInserts);
 
         if (mediaError) {
-          console.error('Error adding media:', mediaError);
+          logger.error('Failed to add media to post', mediaError);
         }
       }
 
@@ -152,7 +165,7 @@ export const usePosts = () => {
       await fetchPosts();
       return post;
     } catch (error) {
-      console.error('Error creating post:', error);
+      logger.error('Failed to create post', error);
       toast.error('Failed to create post');
       return null;
     }
@@ -170,7 +183,7 @@ export const usePosts = () => {
       toast.success('Post deleted');
       await fetchPosts();
     } catch (error) {
-      console.error('Error deleting post:', error);
+      logger.error('Failed to delete post', error);
       toast.error('Failed to delete post');
     }
   };
@@ -206,7 +219,7 @@ export const usePosts = () => {
 
       await fetchPosts();
     } catch (error) {
-      console.error('Error toggling reaction:', error);
+      logger.error('Failed to update reaction', error);
       toast.error('Failed to update reaction');
     }
   };
@@ -239,13 +252,23 @@ export const usePosts = () => {
 
       return enrichedComments;
     } catch (error) {
-      console.error('Error fetching comments:', error);
+      logger.error('Failed to fetch comments', error);
       return [];
     }
   };
 
   const addComment = async (postId: string, content: string) => {
     if (!user) return null;
+
+    // Validate input
+    try {
+      CommentSchema.parse({ content });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+        return null;
+      }
+    }
 
     try {
       const { data, error } = await supabase
@@ -263,7 +286,7 @@ export const usePosts = () => {
       await fetchPosts();
       return data;
     } catch (error) {
-      console.error('Error adding comment:', error);
+      logger.error('Failed to add comment', error);
       toast.error('Failed to add comment');
       return null;
     }
@@ -280,7 +303,7 @@ export const usePosts = () => {
 
       await fetchPosts();
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      logger.error('Failed to delete comment', error);
       toast.error('Failed to delete comment');
     }
   };
