@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      comments: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invite_codes: {
         Row: {
           code: string
@@ -47,6 +82,65 @@ export type Database = {
           max_uses?: number
           relationship?: Database["public"]["Enums"]["user_role"]
           uses_count?: number
+        }
+        Relationships: []
+      }
+      post_media: {
+        Row: {
+          created_at: string
+          id: string
+          media_type: string
+          post_id: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          media_type?: string
+          post_id: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          media_type?: string
+          post_id?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_media_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          audience: Database["public"]["Enums"]["post_audience"]
+          author_id: string
+          content: string | null
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          audience?: Database["public"]["Enums"]["post_audience"]
+          author_id: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          audience?: Database["public"]["Enums"]["post_audience"]
+          author_id?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -86,6 +180,38 @@ export type Database = {
         }
         Relationships: []
       }
+      reactions: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          reaction_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          reaction_type?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          reaction_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reactions_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -112,9 +238,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_view_post: {
+        Args: {
+          post_audience: Database["public"]["Enums"]["post_audience"]
+          viewer_relationship: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
+      }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
+      post_audience: "family" | "inner_circle" | "friends" | "everyone"
       user_role: "family" | "friend" | "inner_circle" | "pending"
     }
     CompositeTypes: {
@@ -243,6 +377,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      post_audience: ["family", "inner_circle", "friends", "everyone"],
       user_role: ["family", "friend", "inner_circle", "pending"],
     },
   },
