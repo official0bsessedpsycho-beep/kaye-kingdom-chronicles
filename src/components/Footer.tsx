@@ -1,42 +1,35 @@
 import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="relative py-12 px-4 border-t border-border/30">
-      <div className="max-w-4xl mx-auto text-center">
-        {/* Decorative top */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold/30" />
-          <Sparkles className="w-5 h-5 text-gold animate-twinkle" />
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold/30" />
-        </div>
-        
+    <footer className="relative py-10 px-4 border-t border-border/30 bg-secondary/20">
+      <div className="max-w-3xl mx-auto text-center">
         {/* Main text */}
-        <p className="font-magical text-lg text-foreground/80 mb-2">
+        <p className="font-magical text-lg text-foreground mb-2">
           kaye.life
         </p>
         
         <p className="font-elegant text-muted-foreground mb-4">
-          A magical space created with love
+          A cozy little space made with love
         </p>
         
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground font-clean">
           <span>Made with</span>
-          <Heart className="w-4 h-4 text-christmas-red fill-christmas-red animate-pulse" />
+          <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
           <span>for Kaye</span>
         </div>
         
         {/* Copyright */}
-        <p className="mt-6 text-xs text-muted-foreground/60 font-clean">
-          © {currentYear} Kaye's Enchanted Life. All moments cherished.
+        <p className="mt-5 text-xs text-muted-foreground/60 font-clean">
+          © {currentYear} kaye.life • Private & Invite-only
         </p>
         
-        {/* Filipino greeting based on season */}
-        <p className="mt-4 text-sm text-gold/70 font-elegant italic">
-          🎄 Maligayang Pasko at Manigong Bagong Taon! 🎄
+        {/* Seasonal greeting */}
+        <p className="mt-3 text-sm text-primary/70 font-elegant">
+          🎄 Merry Christmas! Maligayang Pasko! 🎄
         </p>
       </div>
     </footer>

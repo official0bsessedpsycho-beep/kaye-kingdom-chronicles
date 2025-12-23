@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Heart, Compass, User } from 'lucide-react';
+import { Heart, Lock, User, Clock } from 'lucide-react';
 
 interface HeroSectionProps {
   onEnterClick: () => void;
@@ -9,102 +9,87 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ onEnterClick }) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 pt-20">
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Christmas Banner */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-christmas-red/20 border border-christmas-red/30 text-christmas-snow animate-fade-in">
-          <span className="text-lg">🎄</span>
-          <span className="font-elegant text-sm tracking-wide">Maligayang Pasko!</span>
-          <span className="text-lg">✨</span>
+      <div className="relative z-10 text-center max-w-3xl mx-auto">
+        {/* Active Status Banner */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-primary/10 border border-primary/20 text-foreground animate-fade-in">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          <span className="font-clean text-sm">Active today</span>
+          <span className="text-muted-foreground">•</span>
+          <Clock className="w-3 h-3 text-muted-foreground" />
+          <span className="font-clean text-sm text-muted-foreground">Posted recently</span>
         </div>
-        
-        {/* Welcome Text */}
-        <p className="font-elegant text-lg md:text-xl text-muted-foreground mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-          Welcome to
-        </p>
         
         {/* Main Title */}
-        <h1 className="font-magical text-5xl md:text-7xl lg:text-8xl tracking-wider mb-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          <span className="text-gradient-gold">Kaye's World</span>
+        <h1 className="font-magical text-5xl md:text-7xl lg:text-8xl tracking-wide mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <span className="text-foreground">Hi, I'm </span>
+          <span className="text-primary">Kaye</span>
+          <span className="ml-2">💚</span>
         </h1>
         
-        {/* Filipino tagline */}
-        <p className="font-elegant text-xl md:text-2xl text-gold/80 italic mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          "Mahal Kita, Kaibigan & Pamilya"
-        </p>
-        
-        {/* Decorative Line */}
-        <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          <div className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-gold/50" />
-          <Sparkles className="w-6 h-6 text-gold animate-float" />
-          <div className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-gold/50" />
-        </div>
-        
         {/* Subtitle */}
-        <p className="font-elegant text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-          A Magical Journey Through Kaye's Life
+        <p className="font-elegant text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          Welcome to my little corner of the internet
         </p>
 
-        {/* Photo placeholder with Taurus symbol */}
+        {/* Taurus & May Baby badges */}
+        <p className="font-elegant text-lg text-primary/80 mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          ♉ Taurus • May Baby 🌸 • 🇵🇭 Filipina
+        </p>
+        
+        {/* Personal description */}
+        <p className="font-clean text-base text-muted-foreground max-w-xl mx-auto mb-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          This is where I share my life with the people I love — family, friends, and the ones who really know me.
+        </p>
+
+        {/* Currently doing status */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-xl bg-card border border-border text-sm animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <span className="text-muted-foreground">Currently:</span>
+          <span className="font-medium text-foreground">enjoying the holiday season 🎄</span>
+        </div>
+
+        {/* Photo placeholder */}
         <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="relative">
-            {/* Photo frame */}
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gold/50 bg-background/30 backdrop-blur-sm flex items-center justify-center overflow-hidden group hover:border-gold transition-colors duration-300">
-              <User className="w-16 h-16 md:w-20 md:h-20 text-muted-foreground/50 group-hover:scale-110 transition-transform" />
+            <div className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-primary/30 bg-card flex items-center justify-center overflow-hidden group hover:border-primary/50 transition-all duration-300 shadow-soft">
+              <User className="w-14 h-14 md:w-16 md:h-16 text-muted-foreground/40 group-hover:scale-105 transition-transform" />
             </div>
-            {/* Taurus badge */}
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-background/90 border-2 border-gold/50 shadow-lg">
-              <span className="font-magical text-lg text-gold">♉ Taurus</span>
-            </div>
-            {/* Decorative glow */}
-            <div className="absolute inset-0 rounded-full bg-gold/10 blur-xl -z-10" />
+            {/* Online indicator */}
+            <div className="absolute bottom-2 right-2 w-5 h-5 bg-primary rounded-full border-3 border-card shadow-sm" />
           </div>
         </div>
         
-        {/* Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 animate-fade-in" style={{ animationDelay: '0.7s' }}>
-          <span className="px-3 py-1 rounded-full bg-gold/20 border border-gold/30 text-sm font-clean text-gold">
-            May Baby 🌸
-          </span>
-          <span className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-sm font-clean text-primary-foreground/80">
-            🇵🇭 Filipina
-          </span>
-        </div>
-        
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.7s' }}>
           <Button 
-            variant="magical" 
-            size="xl" 
+            variant="default" 
+            size="lg" 
             onClick={onEnterClick}
-            className="group"
+            className="rounded-full px-8 font-clean shadow-soft hover:shadow-lift transition-all"
           >
-            <span className="mr-2">🔐</span>
-            Log In
+            <Lock className="w-4 h-4 mr-2" />
+            Log in
           </Button>
           
           <Button 
-            variant="enchanted" 
-            size="xl"
+            variant="outline" 
+            size="lg"
             onClick={onEnterClick}
+            className="rounded-full px-8 font-clean border-primary/30 hover:bg-primary/5 transition-all"
           >
-            <Compass className="w-5 h-5 mr-2" />
-            Join the Adventure
+            Join (invite-only)
           </Button>
         </div>
         
         {/* Private Notice */}
-        <p className="mt-8 text-sm text-muted-foreground font-clean animate-fade-in flex items-center justify-center gap-2" style={{ animationDelay: '0.9s' }}>
+        <p className="mt-6 text-sm text-muted-foreground font-clean animate-fade-in flex items-center justify-center gap-2" style={{ animationDelay: '0.8s' }}>
           <Heart className="w-4 h-4 text-rose-400" />
-          For Family & Friends Only
+          Private space for family & friends only
           <Heart className="w-4 h-4 text-rose-400" />
         </p>
       </div>
-      
-      {/* Floating decorative elements */}
-      <div className="absolute top-24 left-10 text-4xl animate-float opacity-30" style={{ animationDelay: '0.2s' }}>🦋</div>
-      <div className="absolute top-44 right-20 text-3xl animate-float opacity-30" style={{ animationDelay: '0.5s' }}>✨</div>
-      <div className="absolute bottom-40 left-20 text-3xl animate-float opacity-30" style={{ animationDelay: '0.7s' }}>🌙</div>
-      <div className="absolute bottom-20 right-10 text-4xl animate-float opacity-30">🌿</div>
     </section>
   );
 };
