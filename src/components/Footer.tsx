@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         </p>
         
         <p className="font-elegant text-muted-foreground mb-4">
-          A cozy little space made with love
+          My little corner of the internet 💚
         </p>
         
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground font-clean">

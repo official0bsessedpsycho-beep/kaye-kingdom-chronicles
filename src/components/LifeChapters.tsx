@@ -51,10 +51,10 @@ const LifeChapters: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="font-magical text-3xl md:text-4xl text-foreground mb-3">
-            My life, lately
+            What I'm into
           </h2>
           <p className="font-elegant text-lg text-muted-foreground">
-            Stuff I've been up to and things I care about
+            The stuff I care about lately
           </p>
         </div>
 

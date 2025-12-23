@@ -2,35 +2,37 @@ import React from 'react';
 
 interface MagicalBackgroundProps {
   showSnow?: boolean;
-  showCandles?: boolean;
 }
 
-const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true }) => {
-  // Generate snowflakes for Christmas (reduced amount, only during holidays)
-  const snowflakes = showSnow ? Array.from({ length: 12 }, (_, i) => ({
+const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = false }) => {
+  // Only show snow during December (Christmas season)
+  const isChristmasSeason = new Date().getMonth() === 11;
+  const shouldShowSnow = showSnow && isChristmasSeason;
+  
+  const snowflakes = shouldShowSnow ? Array.from({ length: 8 }, (_, i) => ({
     id: i,
     left: `${Math.random() * 100}%`,
     delay: `${Math.random() * 10}s`,
-    duration: `${Math.random() * 6 + 10}s`,
-    size: Math.random() * 8 + 6,
+    duration: `${Math.random() * 8 + 12}s`,
+    size: Math.random() * 6 + 8,
   })) : [];
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {/* Soft gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
+      {/* Clean light background */}
+      <div className="absolute inset-0 bg-background" />
       
-      {/* Subtle warm overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/3 via-transparent to-primary/5" />
+      {/* Subtle warm gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-primary/5" />
       
-      {/* Light paper texture */}
-      <div className="absolute inset-0 texture-paper" />
+      {/* Very subtle paper texture */}
+      <div className="absolute inset-0 texture-paper opacity-30" />
       
-      {/* Christmas snowflakes - gentle and sparse */}
+      {/* Christmas snowflakes - only during holidays, very sparse */}
       {snowflakes.map((flake) => (
         <div
           key={flake.id}
-          className="absolute text-primary/20 animate-snowfall snowflake"
+          className="absolute text-primary/15 animate-snowfall"
           style={{
             left: flake.left,
             animationDelay: flake.delay,
@@ -41,10 +43,6 @@ const MagicalBackground: React.FC<MagicalBackgroundProps> = ({ showSnow = true }
           ❄
         </div>
       ))}
-      
-      {/* Soft ambient glow - very subtle */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
     </div>
   );
 };

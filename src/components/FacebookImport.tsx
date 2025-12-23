@@ -14,17 +14,17 @@ const FacebookImport: React.FC = () => {
 
           {/* Heading */}
           <h2 className="font-magical text-2xl md:text-3xl text-foreground mb-2">
-            Import memories from Facebook
+            Bring in your photos
           </h2>
 
-          {/* Filipino translation */}
+          {/* Subtitle */}
           <p className="font-elegant text-muted-foreground mb-6">
-            I-share ang mga alaala mo dito
+            Connect Facebook to import memories here
           </p>
 
           {/* Description */}
           <p className="font-clean text-sm text-muted-foreground mb-6 max-w-md mx-auto">
-            Connect your Facebook to bring in photos and memories. Keep everything in one place!
+            Sync your favorite photos and keep everything in one cozy spot.
           </p>
 
           {/* CTA Button */}
