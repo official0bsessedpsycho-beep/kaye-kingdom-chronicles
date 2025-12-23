@@ -238,6 +238,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_user_with_invite: {
+        Args: {
+          p_display_name: string
+          p_relationship: Database["public"]["Enums"]["user_role"]
+          p_user_id: string
+        }
+        Returns: undefined
+      }
       can_view_post: {
         Args: {
           post_audience: Database["public"]["Enums"]["post_audience"]
