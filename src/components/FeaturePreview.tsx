@@ -73,31 +73,19 @@ const features = [
 const FeaturePreview: React.FC = () => {
   return (
     <section className="relative py-24 px-4">
-      {/* Decorative candles */}
-      <div className="absolute left-4 top-1/4 text-2xl animate-float opacity-50">🕯️</div>
-      <div className="absolute right-4 bottom-1/4 text-2xl animate-float opacity-50" style={{ animationDelay: '1.2s' }}>🕯️</div>
-
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-gold/40" />
-            <span className="text-gold">✦</span>
-            <div className="h-px w-12 bg-gold/40" />
-          </div>
-          
-          <h2 className="font-magical text-3xl md:text-4xl text-gradient-gold mb-3">
+          <h2 className="font-magical text-3xl md:text-4xl text-gradient-gold mb-4">
             Glimpse Into Kaye's World
           </h2>
-          
           <p className="font-elegant text-lg text-muted-foreground italic">
             Isang sulyap sa mundo ni Kaye
           </p>
-          
           <div className="flex items-center justify-center gap-3 mt-4">
-            <div className="h-px w-16 bg-gold/30" />
-            <span className="text-gold text-sm">❧</span>
-            <div className="h-px w-16 bg-gold/30" />
+            <div className="h-px w-12 bg-gold/30" />
+            <span className="text-gold">✦</span>
+            <div className="h-px w-12 bg-gold/30" />
           </div>
         </div>
         

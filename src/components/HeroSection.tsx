@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Heart, LogIn } from 'lucide-react';
+import { Sparkles, Heart, Lock } from 'lucide-react';
 
 interface HeroSectionProps {
   onEnterClick: () => void;
@@ -8,100 +8,83 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onEnterClick }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 pt-20">
-      {/* Decorative candles on sides */}
-      <div className="absolute left-4 md:left-8 top-1/4 text-3xl md:text-4xl animate-float opacity-60">🕯️</div>
-      <div className="absolute right-4 md:right-8 top-1/3 text-3xl md:text-4xl animate-float opacity-60" style={{ animationDelay: '1s' }}>🕯️</div>
-      <div className="absolute left-6 md:left-12 bottom-1/4 text-2xl md:text-3xl animate-float opacity-50" style={{ animationDelay: '2s' }}>🕯️</div>
-      <div className="absolute right-6 md:right-12 bottom-1/3 text-2xl md:text-3xl animate-float opacity-50" style={{ animationDelay: '0.5s' }}>🕯️</div>
-
+    <section className="relative min-h-screen flex items-center justify-center px-4">
       <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Welcome Text */}
-        <p className="font-elegant text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in">
-          Welcome to
-        </p>
-        
-        {/* Main Title */}
-        <h1 className="font-magical text-5xl md:text-7xl lg:text-8xl tracking-wider mb-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          <span className="text-gradient-gold">Kaye</span>
-          <span className="text-foreground/80">'s World</span>
-        </h1>
-        
-        {/* Decorative Stars */}
-        <div className="flex items-center justify-center gap-2 mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <span className="text-gold">✦</span>
-          <span className="text-gold/70">✦</span>
-          <span className="text-gold">✦</span>
+        {/* Christmas Banner */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-christmas-red/20 border border-christmas-red/30 text-christmas-snow animate-fade-in">
+          <span className="text-lg">🎄</span>
+          <span className="font-elegant text-sm tracking-wide">Maligayang Pasko!</span>
+          <span className="text-lg">✨</span>
         </div>
         
-        {/* Filipino Tagline */}
-        <p className="font-magical text-xl md:text-2xl text-gold/90 mb-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          Mahal Kita, Kaibigan & Pamilya
-        </p>
+        {/* Main Title */}
+        <h1 className="font-magical text-5xl md:text-7xl lg:text-8xl tracking-wider mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <span className="text-gradient-gold">Kaye</span>
+          <span className="text-foreground/80">'s</span>
+        </h1>
+        
+        <h2 className="font-magical text-3xl md:text-4xl lg:text-5xl text-foreground/90 tracking-wide mb-8 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          Enchanted Life
+        </h2>
         
         {/* Decorative Line */}
-        <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+        <div className="flex items-center justify-center gap-4 mb-8 animate-fade-in" style={{ animationDelay: '0.5s' }}>
           <div className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-gold/50" />
-          <Sparkles className="w-5 h-5 text-gold animate-float" />
+          <Sparkles className="w-6 h-6 text-gold animate-float" />
           <div className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-gold/50" />
         </div>
         
         {/* Subtitle */}
-        <p className="font-elegant text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-          A Magical Journey Through Kaye's Life
+        <p className="font-elegant text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 italic animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          "A magical journey through life, love, and everything in between"
         </p>
         
         {/* Taurus & May Born Badge */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10 animate-fade-in" style={{ animationDelay: '0.7s' }}>
-          <span className="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-sm font-clean text-primary-foreground/90">
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-12 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+          <span className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-sm font-clean text-primary-foreground/80">
             ♉ Taurus
           </span>
-          <span className="px-4 py-1.5 rounded-full bg-gold/20 border border-gold/40 text-sm font-clean text-gold">
+          <span className="px-3 py-1 rounded-full bg-gold/20 border border-gold/30 text-sm font-clean text-gold">
             May Baby 🌸
           </span>
-          <span className="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-sm font-clean text-primary-foreground/90 flex items-center gap-1">
+          <span className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-sm font-clean text-primary-foreground/80">
             🇵🇭 Filipina
           </span>
         </div>
         
-        {/* CTA Buttons - Style matching reference */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.9s' }}>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '1s' }}>
           <Button 
-            variant="outline" 
-            size="lg" 
+            variant="magical" 
+            size="xl" 
             onClick={onEnterClick}
-            className="group bg-transparent border-2 border-gold/60 text-gold hover:bg-gold/10 hover:border-gold px-8 py-6 font-magical tracking-wide"
+            className="group"
           >
-            <LogIn className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
-            Log In
+            <Lock className="w-5 h-5 transition-transform group-hover:scale-110" />
+            Enter the Portal
           </Button>
           
           <Button 
-            size="lg"
+            variant="enchanted" 
+            size="xl"
             onClick={onEnterClick}
-            className="group bg-gradient-to-r from-primary to-emerald-dark hover:from-emerald-dark hover:to-primary text-foreground border border-gold/30 px-8 py-6 font-magical tracking-wide shadow-magical"
           >
-            <Heart className="w-5 h-5 mr-2" />
-            Join the Adventure
+            <Heart className="w-5 h-5" />
+            For Family & Friends
           </Button>
         </div>
         
         {/* Private Notice */}
-        <div className="mt-8 flex items-center justify-center gap-2 animate-fade-in" style={{ animationDelay: '1s' }}>
-          <span className="text-lg">🔒</span>
-          <p className="text-sm text-muted-foreground font-elegant italic">
-            Invite-only for Family & Friends
-          </p>
-        </div>
+        <p className="mt-8 text-sm text-muted-foreground font-clean animate-fade-in" style={{ animationDelay: '1s' }}>
+          🔒 This is a private space. Access by invitation only.
+        </p>
       </div>
       
-      {/* Floating sparkle decorations */}
-      <div className="absolute top-24 left-1/4 text-xl text-gold animate-twinkle opacity-60">✨</div>
-      <div className="absolute top-32 right-1/4 text-lg text-gold animate-twinkle opacity-50" style={{ animationDelay: '0.5s' }}>✨</div>
-      <div className="absolute bottom-40 left-1/3 text-xl text-gold animate-twinkle opacity-60" style={{ animationDelay: '1s' }}>✨</div>
-      <div className="absolute bottom-32 right-1/3 text-lg text-gold animate-twinkle opacity-50" style={{ animationDelay: '1.5s' }}>✨</div>
-      <div className="absolute top-1/2 left-8 text-2xl animate-float opacity-40">🦋</div>
-      <div className="absolute bottom-1/4 right-8 text-2xl animate-float opacity-40" style={{ animationDelay: '2s' }}>🌿</div>
+      {/* Floating decorative elements */}
+      <div className="absolute top-20 left-10 text-4xl animate-float opacity-30" style={{ animationDelay: '0.2s' }}>🦋</div>
+      <div className="absolute top-40 right-20 text-3xl animate-float opacity-30" style={{ animationDelay: '0.5s' }}>✨</div>
+      <div className="absolute bottom-40 left-20 text-3xl animate-float opacity-30" style={{ animationDelay: '0.7s' }}>🌙</div>
+      <div className="absolute bottom-20 right-10 text-4xl animate-float opacity-30">🌿</div>
     </section>
   );
 };

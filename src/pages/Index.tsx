@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import MagicalBackground from '@/components/MagicalBackground';
 import HeroSection from '@/components/HeroSection';
-import LifeChaptersMap from '@/components/LifeChaptersMap';
-import FestiveCelebrations from '@/components/FestiveCelebrations';
 import FeaturePreview from '@/components/FeaturePreview';
 import Footer from '@/components/Footer';
 import AuthModal from '@/components/AuthModal';
@@ -25,8 +23,8 @@ const Index: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Kaye's World | A Magical Journey Through Life</title>
-        <meta name="description" content="Welcome to Kaye's private enchanted world - a magical space for life updates, memories, and cherished moments with family and friends. Mahal Kita, Kaibigan & Pamilya." />
+        <title>Kaye's Enchanted Life | A Magical Journey</title>
+        <meta name="description" content="Welcome to Kaye's private enchanted world - a magical space for life updates, memories, and cherished moments with family and friends." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       
@@ -37,8 +35,6 @@ const Index: React.FC = () => {
         {/* Main content */}
         <main className="relative z-10">
           <HeroSection onEnterClick={() => setIsAuthModalOpen(true)} />
-          <LifeChaptersMap />
-          <FestiveCelebrations />
           <FeaturePreview />
           <Footer />
         </main>
