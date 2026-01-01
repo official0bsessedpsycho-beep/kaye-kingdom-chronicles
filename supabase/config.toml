@@ -1,1 +1,10 @@
 project_id = "uzpkhhcqspgnqafugazi"
+
+[functions.log-activity]
+verify_jwt = false
+
+[functions.admin-stats]
+verify_jwt = true
+
+[functions.approve-user]
+verify_jwt = true
