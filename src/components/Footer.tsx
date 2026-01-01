@@ -19,11 +19,16 @@ const Footer: React.FC = () => {
               Enchanted Archives
             </h3>
             <ul className="space-y-3 font-elegant text-[#e8dcb8]/80">
-              {['The Journey Begins', 'Life Chapters', 'Gallery of Memories', 'Family Tree'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="hover:text-[#ffd700] transition-colors flex items-center justify-center md:justify-start gap-2 group">
+              {[
+                { label: 'The Journey Begins', href: '#about' },
+                { label: 'Life Chapters', href: '#chapters' },
+                { label: 'Gallery of Memories', href: '#gallery' },
+                { label: 'Family Tree', href: '#family' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="hover:text-[#ffd700] transition-colors flex items-center justify-center md:justify-start gap-2 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}

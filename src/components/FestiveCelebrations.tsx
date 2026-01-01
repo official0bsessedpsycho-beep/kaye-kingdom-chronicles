@@ -21,7 +21,7 @@ const celebrations = [
 
 const FestiveCelebrations = () => {
     return (
-        <section className="relative py-24 px-4 overflow-hidden">
+        <section id="gallery" className="relative py-24 px-4 overflow-hidden scroll-mt-24">
             {/* Background Decorative Sparkles */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/4 left-10 w-2 h-2 bg-gold/50 rounded-full animate-twinkle" />

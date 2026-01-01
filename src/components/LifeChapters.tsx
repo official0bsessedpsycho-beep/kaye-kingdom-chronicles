@@ -30,7 +30,7 @@ const chapters = [
 
 const LifeChapters = () => {
     return (
-        <section id="chapters" className="relative py-20 px-4">
+        <section id="chapters" className="relative py-20 px-4 scroll-mt-24">
             {/* Floating Header Banner */}
             <div className="relative z-10 flex justify-center -mb-8">
                 <div className="relative transform hover:scale-105 transition-transform duration-300">

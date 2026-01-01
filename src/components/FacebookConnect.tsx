@@ -1,10 +1,11 @@
 import React from 'react';
 import { Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const FacebookConnect = () => {
     return (
-        <section className="relative py-12 px-4 text-center">
+        <section id="family" className="relative py-12 px-4 text-center scroll-mt-24">
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
                 <div className="flex items-center justify-center gap-4 mb-2">
                     <div className="h-px w-24 bg-gradient-to-r from-transparent to-gold/40" />
@@ -16,6 +17,7 @@ const FacebookConnect = () => {
 
                 <Button
                     size="lg"
+                    onClick={() => toast.info('Coming soon: Facebook import is not available yet.')}
                     className="w-full sm:w-auto bg-[#1877F2] hover:bg-[#166fe5] text-white font-clean rounded-full px-8 shadow-lg hover:shadow-[#1877F2]/30 transition-all duration-300 gap-3"
                 >
                     <span className="font-bold tracking-wide">Connect & Share</span>

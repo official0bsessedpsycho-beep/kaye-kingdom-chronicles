@@ -39,7 +39,7 @@ const Index: React.FC = () => {
         <main className="relative z-10 flex flex-col min-h-screen">
           <Header />
 
-          <section className="relative">
+          <section id="about" className="relative scroll-mt-24">
             <HeroSection onEnterClick={() => setIsAuthModalOpen(true)} />
           </section>
 
