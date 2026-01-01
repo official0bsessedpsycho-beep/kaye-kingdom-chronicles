@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePosts, PostAudience } from '@/hooks/usePosts';
 import MagicalBackground from '@/components/MagicalBackground';
+import NotificationBell from '@/components/NotificationBell';
 import CreatePostForm from '@/components/timeline/CreatePostForm';
 import PostCard from '@/components/timeline/PostCard';
 import { Button } from '@/components/ui/button';
@@ -83,14 +84,17 @@ const Timeline: React.FC = () => {
                 </div>
               </div>
 
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={refreshPosts}
-                className="h-9 w-9"
-              >
-                <RefreshCw className={`w-5 h-5 ${postsLoading ? 'animate-spin' : ''}`} />
-              </Button>
+              <div className="flex items-center gap-2">
+                <NotificationBell />
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={refreshPosts}
+                  className="h-9 w-9"
+                >
+                  <RefreshCw className={`w-5 h-5 ${postsLoading ? 'animate-spin' : ''}`} />
+                </Button>
+              </div>
             </div>
           </header>
 

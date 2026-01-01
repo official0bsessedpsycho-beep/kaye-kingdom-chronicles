@@ -315,19 +315,7 @@ export type Database = {
       }
     }
     Views: {
-      admin_stats: {
-        Row: {
-          approved_users: number | null
-          pending_users: number | null
-          posts_last_week: number | null
-          signups_last_week: number | null
-          total_comments: number | null
-          total_posts: number | null
-          total_reactions: number | null
-          total_users: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       approve_user_with_invite: {
@@ -355,6 +343,19 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      get_admin_stats: {
+        Args: never
+        Returns: {
+          approved_users: number
+          pending_users: number
+          posts_last_week: number
+          signups_last_week: number
+          total_comments: number
+          total_posts: number
+          total_reactions: number
+          total_users: number
+        }[]
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       log_activity: {

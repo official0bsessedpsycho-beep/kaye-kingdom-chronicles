@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 import MagicalBackground from '@/components/MagicalBackground';
+import NotificationBell from '@/components/NotificationBell';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   LogOut, 
-  User, 
   BookOpen, 
   GraduationCap, 
   Heart, 
@@ -16,7 +17,8 @@ import {
   Plane, 
   Camera, 
   Star,
-  Sparkles
+  Sparkles,
+  Shield
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -33,6 +35,7 @@ const menuItems = [
 
 const Dashboard: React.FC = () => {
   const { user, profile, isLoading, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,6 +101,16 @@ const Dashboard: React.FC = () => {
                   <p className="font-clean text-sm text-foreground">{profile?.display_name || user.email}</p>
                   <p className="font-clean text-xs text-gold">{getRelationshipLabel(profile?.relationship)}</p>
                 </div>
+                
+                <NotificationBell />
+                
+                {isAdmin && (
+                  <Link to="/admin">
+                    <Button variant="ghost" size="icon" className="text-gold">
+                      <Shield className="w-5 h-5" />
+                    </Button>
+                  </Link>
+                )}
                 
                 <Button variant="ghost" size="icon" onClick={handleSignOut}>
                   <LogOut className="w-5 h-5" />
