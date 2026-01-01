@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_logs: {
+        Row: {
+          action: string
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       comments: {
         Row: {
           author_id: string
@@ -84,6 +120,50 @@ export type Database = {
           uses_count?: number
         }
         Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          read: boolean
+          related_post_id: string | null
+          related_user_id: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          read?: boolean
+          related_post_id?: string | null
+          related_user_id?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          related_post_id?: string | null
+          related_user_id?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_related_post_id_fkey"
+            columns: ["related_post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       post_media: {
         Row: {
@@ -235,7 +315,19 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      admin_stats: {
+        Row: {
+          approved_users: number | null
+          pending_users: number | null
+          posts_last_week: number | null
+          signups_last_week: number | null
+          total_comments: number | null
+          total_posts: number | null
+          total_reactions: number | null
+          total_users: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       approve_user_with_invite: {
@@ -253,7 +345,28 @@ export type Database = {
         }
         Returns: boolean
       }
+      create_notification: {
+        Args: {
+          p_message: string
+          p_related_post_id?: string
+          p_related_user_id?: string
+          p_title: string
+          p_type: string
+          p_user_id: string
+        }
+        Returns: string
+      }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      log_activity: {
+        Args: {
+          p_action: string
+          p_entity_id?: string
+          p_entity_type?: string
+          p_metadata?: Json
+          p_user_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       post_audience: "family" | "inner_circle" | "friends" | "everyone"
