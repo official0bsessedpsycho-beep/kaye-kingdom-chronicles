@@ -39,7 +39,7 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
 
         {/* Logo Section */}
-        <div className="flex items-center gap-4 group cursor-pointer">
+        <a href="#about" className="flex items-center gap-4 group cursor-pointer">
           <div className={cn(
             "relative flex items-center justify-center rounded-full transition-all duration-500 border border-[#c5a059]",
             isScrolled ? "w-10 h-10 bg-[#0a1f12]/80" : "w-12 h-12 bg-gradient-to-br from-[#0f2e1b] to-[#05110a] shadow-[0_0_15px_rgba(197,160,89,0.3)]"
@@ -58,7 +58,7 @@ const Header = () => {
               kaye<span className="text-[#c5a059]">.life</span>
             </span>
           </div>
-        </div>
+        </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
